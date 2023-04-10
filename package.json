@@ -3,5 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "lazaralex98 <alex2012ro@gmail.com>",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "typescript": "^5.0.4"
+  }
 }
