@@ -1,6 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment } from "react";
 import { create } from "zustand";
+import "./index.css";
 
 interface ContextMenuState {
   show: boolean;
@@ -29,7 +30,13 @@ export const useContextMenu = create<ContextMenuState>((set) => ({
     }),
 }));
 
-export function ContextMenu({ className }: { className?: string }) {
+export function ContextMenu({
+  className,
+  backgroundClassName,
+}: {
+  className?: string;
+  backgroundClassName?: string;
+}) {
   const { show, location, options, clearContextMenu } = useContextMenu();
   if (show) {
     return (
@@ -44,7 +51,12 @@ export function ContextMenu({ className }: { className?: string }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-10 transition-opacity" />
+            <div
+              className={classNames(
+                "fixed inset-0 transition-opacity",
+                backgroundClassName || ""
+              )}
+            />
           </Transition.Child>
 
           <div className="fixed inset-0 z-50 overflow-y-auto">
