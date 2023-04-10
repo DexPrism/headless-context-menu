@@ -1,7 +1,9 @@
 {
   "name": "headless-context-menu",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/headless-context-menu.es.js",
+  "module": "dist/headless-context-menu.es.js",
+  "typings": "src/index.tsx",
   "author": "lazaralex98 <alex2012ro@gmail.com>",
   "license": "GPL-3.0",
   "scripts": {
