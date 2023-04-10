@@ -1,26 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { useContextMenu, handleContextMenu, ContextMenu } from "../src/index";
+import * as ReactDOMClient from 'react-dom/client';
+import { App } from "./App";
 
-const App = () => {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="block bg-red-400" onContextMenu={(e)=> {
-        e.preventDefault();
-        console.log("haidee")
-        handleContextMenu(e, contextMenuOptions);
-        }}>Hello world!</div>
-      <ContextMenu />
-    </div>
-  );
-};
-
-ReactDOM.render(<App />, document.getElementById("app"));
-
-const contextMenuOptions = [
-  <a href="https://dextrac.com">Go to DexTrac</a>,
-  <div onClick={() => {
-    navigator.clipboard.writeText("Hello world!");
-  }
-  }>Copy</div>,
-];
+const container = document.getElementById("app")
+if (!container) {
+  throw new Error("Container not found");
+}
+const root = ReactDOMClient.createRoot(container);
+root.render(<App />);
