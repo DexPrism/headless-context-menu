@@ -1,6 +1,6 @@
 # Headless Context Menu
 
-A versatile and customizable headless context menu React component built with TypeScript, Tailwind CSS, and Zustand.
+A versatile and customizable headless context menu React component built with TypeScript, Tailwind CSS, and Zustand. NPM package [here](https://www.npmjs.com/package/headless-context-menu?activeTab=readme).
 
 ## Features
 
