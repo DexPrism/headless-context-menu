@@ -1,6 +1,6 @@
 {
   "name": "headless-context-menu",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "dist/headless-context-menu.es.js",
   "module": "dist/headless-context-menu.es.js",
   "typings": "src/index.tsx",
