@@ -6,7 +6,7 @@
   "typings": "src/index.tsx",
   "author": "lazaralex98 <alex2012ro@gmail.com>",
   "license": "GPL-3.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
