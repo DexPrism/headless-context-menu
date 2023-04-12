@@ -3,13 +3,17 @@ import { Fragment } from "react";
 import { create } from "zustand";
 import "./index.css";
 
+type ContextMenuOption =
+  | { name: string; onClick?: () => void; className?: string }
+  | { name: string; href: string; className?: string };
+
 interface ContextMenuState {
   show: boolean;
   location: { x: number; y: number };
-  options: Array<React.ReactNode>;
+  options: Array<ContextMenuOption>;
   setNewShow: (newShow: boolean) => void;
   setNewLocation: (newLocation: { x: number; y: number }) => void;
-  setNewOptions: (newOptions: Array<React.ReactNode>) => void;
+  setNewOptions: (newOptions: Array<ContextMenuOption>) => void;
   clearContextMenu: () => void;
 }
 
@@ -20,7 +24,7 @@ export const useContextMenu = create<ContextMenuState>((set) => ({
   setNewShow: (newShow: boolean) => set(() => ({ show: newShow })),
   setNewLocation: (newLocation: { x: number; y: number }) =>
     set(() => ({ location: newLocation })),
-  setNewOptions: (newOptions: Array<React.ReactNode>) =>
+  setNewOptions: (newOptions: Array<ContextMenuOption>) =>
     set(() => ({ options: newOptions })),
   clearContextMenu: () =>
     set({
@@ -94,13 +98,48 @@ export function ContextMenu({
   return <></>;
 }
 
-function renderOptions(options: React.ReactNode[]) {
-  return options.map((option, index) => <div key={index}>{option}</div>);
+function renderOptions(options: ContextMenuOption[]) {
+  return options.map((option, index) => {
+    if ("onClick" in option) {
+      return (
+        <div
+          key={index}
+          className={classNames(
+            "inline-block w-full cursor-pointer p-2",
+            option.className || ""
+          )}
+          onClick={() => {
+            option.onClick?.();
+            useContextMenu.getState().clearContextMenu();
+          }}
+        >
+          {option.name}
+        </div>
+      );
+    }
+    if ("href" in option) {
+      return (
+        <a
+          key={index}
+          className={classNames(
+            "inline-block w-full cursor-pointer p-2",
+            option.className || ""
+          )}
+          href={option.href}
+          onClick={() => {
+            useContextMenu.getState().clearContextMenu();
+          }}
+        >
+          {option.name}
+        </a>
+      );
+    }
+  });
 }
 
 export function handleContextMenu(
   e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  options: React.ReactNode[]
+  options: ContextMenuOption[]
 ) {
   const { clientX, clientY } = e;
   const windowWidth = window.innerWidth;
