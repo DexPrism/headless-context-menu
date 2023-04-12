@@ -1,5 +1,4 @@
-import React from "react";
-import { useContextMenu, handleContextMenu, ContextMenu } from "../src/index";
+import { handleContextMenu, ContextMenu } from "../src/index";
 
 export const App = () => {
   const className = "hover:bg-gray-100 p-4 rounded focus:outline-none";
