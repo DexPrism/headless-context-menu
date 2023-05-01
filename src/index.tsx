@@ -1,11 +1,21 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { create } from "zustand";
 import "./index.css";
 
 type ContextMenuOption =
   | { name: string; onClick?: () => void; className?: string }
-  | { name: string; href: string; className?: string };
+  | {
+      name: string;
+      href: string;
+      className?: string;
+      wrapper?: React.ComponentType<{
+        href: string;
+        onClick?: () => void;
+        className?: string;
+        children?: React.ReactNode;
+      }>;
+    };
 
 interface ContextMenuState {
   show: boolean;
@@ -118,6 +128,23 @@ function renderOptions(options: ContextMenuOption[]) {
       );
     }
     if ("href" in option) {
+      if (option.wrapper) {
+        return (
+          <option.wrapper
+            key={index}
+            className={classNames(
+              "inline-block w-full cursor-pointer p-2",
+              option.className || ""
+            )}
+            href={option.href}
+            onClick={() => {
+              useContextMenu.getState().clearContextMenu();
+            }}
+          >
+            {option.name}
+          </option.wrapper>
+        );
+      }
       return (
         <a
           key={index}
